@@ -88,7 +88,7 @@ def remove_temp_files(name):
     """ Removes .aux, .log, .pdf and .tex files for name """
     os.remove(name+".aux")
     os.remove(name+".log")
-    os.remove(name+".pdf")
+    # os.remove(name+".pdf")
     os.remove(name+".tex")
 
 def formula_to_image(formula):
@@ -118,12 +118,12 @@ def formula_to_image(formula):
             os.system("rm -rf "+full_path+"*")
             return None
         
-        # Turn .pdf to .png
-        # Handles variable number of places to insert path.
-        # i.e. "%s.tex" vs "%s.pdf %s.png"
-        full_path_strings = rend_setup[1].count("%")*(full_path,)
-        code = call((rend_setup[1] % full_path_strings).split(" "),
-                    stdout=DEVNULL, stderr=DEVNULL)
+        # # Turn .pdf to .png
+        # # Handles variable number of places to insert path.
+        # # i.e. "%s.tex" vs "%s.pdf %s.png"
+        # full_path_strings = rend_setup[1].count("%")*(full_path,)
+        # code = call((rend_setup[1] % full_path_strings).split(" "),
+        #             stdout=DEVNULL, stderr=DEVNULL)
         
         #Remove files
         try:
@@ -133,21 +133,21 @@ def formula_to_image(formula):
             # already
             return None
         
-        # Detect of convert created multiple images -> multi-page PDF
-        resulted_images = glob.glob(full_path+"-*") 
-        
-        if code != 0:
-            # Error during rendering, remove files and return None
-            os.system("rm -rf "+full_path+"*")
-            return None
-        elif len(resulted_images) > 1:
-            # We have multiple images for same formula
-            # Discard result and remove files
-            for filename in resulted_images:
-                os.system("rm -rf "+filename+"*")
-            return None
-        else: 
-            ret.append([full_path, rend_name])
+        # # Detect of convert created multiple images -> multi-page PDF
+        # resulted_images = glob.glob(full_path+"-*") 
+        # 
+        # if code != 0:
+        #     # Error during rendering, remove files and return None
+        #     os.system("rm -rf "+full_path+"*")
+        #     return None
+        # elif len(resulted_images) > 1:
+        #     # We have multiple images for same formula
+        #     # Discard result and remove files
+        #     for filename in resulted_images:
+        #         os.system("rm -rf "+filename+"*")
+        #     return None
+        # else: 
+        ret.append([full_path, rend_name])
     return ret
     
             
