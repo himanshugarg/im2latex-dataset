@@ -80,7 +80,7 @@ BASIC_SKELETON = r"""
 
 #RENDERING_SETUPS = {"basic": [BASIC_SKELETON, "./textogif -png -dpi 200 %s"]}
 RENDERING_SETUPS = {"basic": [BASIC_SKELETON, 
-                              "pdf2txt.py -t html -o %s.html %s.pdf",
+                              "pdf2txt.py -o %s.html %s.pdf",
                               lambda filename: os.path.isfile(filename + ".html")]
                    }
 
